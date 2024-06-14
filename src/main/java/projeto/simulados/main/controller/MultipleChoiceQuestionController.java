@@ -1,5 +1,4 @@
 package projeto.simulados.main.controller;
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,15 +14,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import projeto.simulados.main.model.Question;
-import projeto.simulados.main.service.QuestionService;
+import projeto.simulados.main.model.MultipleChoiceQuestion;
+import projeto.simulados.main.service.MultipleChoiceQuestionService;
 
 @RestController
-@RequestMapping(path = "/api/questions")
-public class QuestionController {
+@RequestMapping(path = "/api/multiplechoicequestions")
+public class MultipleChoiceQuestionController {
 
 	@Autowired
-	QuestionService service;
+	MultipleChoiceQuestionService service;
 
 	@GetMapping(path = "/simulate")
 	//@PreAuthorize("hasAnyAuthority('PROFESSOR','ADMIN')")
@@ -33,21 +32,21 @@ public class QuestionController {
 
 	@GetMapping
 	//@PreAuthorize("hasAnyAuthority('PROFESSOR','ADMIN')")
-	public ResponseEntity<List<Question>> findAll() {
-		return new ResponseEntity<List<Question>>(service.findAll(), HttpStatus.OK);
+	public ResponseEntity<List<MultipleChoiceQuestion>> findAll() {
+		return new ResponseEntity<List<MultipleChoiceQuestion>>(service.findAll(), HttpStatus.OK);
 	}
 
 	@GetMapping(path = "{id}")
 	//@PreAuthorize("hasAnyAuthority('PROFESSOR','ADMIN')")
-	public ResponseEntity<Question> find(@PathVariable("id") int id) {
-		return new ResponseEntity<Question>(service.find(id), HttpStatus.OK);
+	public ResponseEntity<MultipleChoiceQuestion> find(@PathVariable("id") int id) {
+		return new ResponseEntity<MultipleChoiceQuestion>(service.find(id), HttpStatus.OK);
 	}
 
 	@GetMapping(path = "/searchQuestionByTopic")
 	//@PreAuthorize("hasAnyAuthority('PROFESSOR','ADMIN')")
-	public ResponseEntity<List<Question>> find(@RequestParam("name") String name) {
-		return new ResponseEntity<List<Question>>(service.findQuestionByTopic(name), HttpStatus.OK);
-	}
+	public ResponseEntity<List<MultipleChoiceQuestion>> find(@RequestParam("name") String name) {
+		return new ResponseEntity<List<MultipleChoiceQuestion>>(service.findMultipleChoiceQuestionsByTopic(name), HttpStatus.OK);
+	}	
 
 	/*
 	 * @GetMapping(path = "/search") public ResponseEntity<Teacher>
@@ -67,14 +66,14 @@ public class QuestionController {
 	//incluido variavel qType que corresponde ao metodo no QuestionService
 	@PostMapping("/topics/{id}")
 	//@PreAuthorize("hasAuthority('PROFESSOR')")
-	public void save(@PathVariable("id") int topic_id,  @RequestParam int qType, @RequestBody Question question) {
-		service.saveQuestionOnTopic(topic_id, qType, question); 
+	public void save(@PathVariable("id") int topic_id,  @RequestParam int qType, @RequestBody MultipleChoiceQuestion multipleChoiceQuestion) {
+		service.saveQuestionOnTopic(topic_id, qType, multipleChoiceQuestion); 
 	}
 
 	@PutMapping(path = "{id}")
 	//@PreAuthorize("hasAuthority('PROFESSOR')")
-	public void update(@PathVariable("id") int id, @RequestBody Question question) {
-		service.save(id, question);
+	public void update(@PathVariable("id") int id, @RequestBody MultipleChoiceQuestion multipleChoiceQuestion) {
+		service.save(id, multipleChoiceQuestion);
 	}
 
 	@PostMapping("/{id}/simulate")
@@ -102,3 +101,4 @@ public class QuestionController {
 	}
 
 }
+

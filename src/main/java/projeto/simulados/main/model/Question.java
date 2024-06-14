@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
@@ -12,7 +14,9 @@ import javax.persistence.SequenceGenerator;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Question {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "question_generator")
@@ -23,8 +27,6 @@ public class Question {
 	private String question;
 	@Column(name = "option")
 	private int option;
-	@Column(name = "booleanOption")
-	private boolean booleanOption;
 
 	@ManyToOne
 	@JoinColumn(name = "id")
@@ -45,13 +47,12 @@ public class Question {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Question(int question_id, String question, int option, boolean booleanOption, Teacher teacher, Topic topic,
+	public Question(int question_id, String question, int option, Teacher teacher, Topic topic,
 			Answer answer) {
 		super();
 		this.question_id = question_id;
 		this.question = question;
 		this.option = option;
-		this.booleanOption = booleanOption;
 		this.teacher = teacher;
 		this.topic = topic;
 		this.answer = answer;
@@ -61,13 +62,6 @@ public class Question {
 		super();
 		this.question = question;
 		this.question_id = question_id;
-	}
-
-	public Question(int question_id, String question, boolean booleanOption) {
-		super();
-		this.question = question;
-		this.question_id = question_id;
-		this.booleanOption = booleanOption;
 	}
 
 	public int getQuestion_id() {
@@ -84,14 +78,6 @@ public class Question {
 
 	public void setQuestion(String question) {
 		this.question = question;
-	}
-
-	public boolean isBooleanOption() {
-		return booleanOption;
-	}
-
-	public void setBooleanOption(boolean booleanOption) {
-		this.booleanOption = booleanOption;
 	}
 
 	public int getOption() {
@@ -129,7 +115,7 @@ public class Question {
 	@Override
 	public String toString() {
 		return "Question [question_id=" + question_id + ", question=" + question + ", option=" + option
-				+ ", booleanOption=" + booleanOption + ", teacher=" + teacher + ", topic=" + topic + ", answer="
+				+ ", teacher=" + teacher + ", topic=" + topic + ", answer="
 				+ answer + "]";
 	}
 

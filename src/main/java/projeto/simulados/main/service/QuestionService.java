@@ -1,8 +1,6 @@
 package projeto.simulados.main.service;
 
-import java.text.Collator;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import projeto.simulados.main.model.Question;
+import projeto.simulados.main.model.QuestionType;
 import projeto.simulados.main.model.Topic;
 import projeto.simulados.main.repository.QuestionRepository;
 import projeto.simulados.main.repository.TopicRepository;
@@ -51,12 +50,14 @@ public class QuestionService {
 		return null;
 	}
 
-	public void saveQuestionOnTopic(int topic_id, Question question) {
+	//Incluindo parâmetro type para poder salvar tipo da questão
+	public void saveQuestionOnTopic(int topic_id, int type, Question question) {
 
 		Topic topic = topicRepository.findById(topic_id).get();
-
+		
+		QuestionType qType = QuestionType.valueOf(type);
 		question.setTopic(topic);
-
+		question.setOption(qType.getValor());// Setando opção chamando qType   
 		questionRepository.save(question);
 	}
 
@@ -88,7 +89,6 @@ public class QuestionService {
 	public List<Question> findQuestionByTopic(String topic_name) { // TODO
 		int topic_id = topicRepository.findTopicIdByName(topic_name);
 		return questionRepository.findQuestionByTopicId(topic_id);
-
 	}
 
 }
