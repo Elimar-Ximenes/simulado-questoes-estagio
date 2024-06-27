@@ -33,9 +33,7 @@ public class StudentService {
 	public void save(int id, Student entity) {
 		if (id != 0) {
 			entity.setUser_id(id);
-			entity.setPassword(new BCryptPasswordEncoder().encode(entity.getPassword()));
 		}
-		entity.setPassword(new BCryptPasswordEncoder().encode(entity.getPassword()));
 		studentRepository.save(entity);
 	}
 

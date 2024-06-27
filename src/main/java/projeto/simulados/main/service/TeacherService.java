@@ -4,10 +4,11 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import projeto.simulados.main.model.Teacher;
+import projeto.simulados.main.repository.LoginRepository;
+import projeto.simulados.main.repository.QuestionRepository;
 import projeto.simulados.main.repository.TeacherRepository;
 
 @Service
@@ -16,11 +17,19 @@ public class TeacherService {
 	@Autowired
 	TeacherRepository teacherRepository;
 
+	@Autowired
+	QuestionRepository questionRepository;
+
+	@Autowired
+	QuestionService questionService;
+
+	@Autowired
+	LoginRepository loginRepository;
+
 	public void save(int id, Teacher entity) {
 		if (id != 0) {
 			entity.setUser_id(id);
 		}
-		entity.setPassword(new BCryptPasswordEncoder().encode(entity.getPassword()));
 		teacherRepository.save(entity);
 	}
 
