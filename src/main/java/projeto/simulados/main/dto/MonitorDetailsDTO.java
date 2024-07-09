@@ -10,8 +10,10 @@ public class MonitorDetailsDTO {
     private LocalDateTime acceptanceOrRejectionDate;
     private String subjectDescription;
     private boolean accepted;
+    private String studentName;
+    private String teacherName;
 
-    public MonitorDetailsDTO(int id, int studentId, int teacherId, LocalDateTime requestDate, LocalDateTime acceptanceOrRejectionDate, String subjectDescription, boolean accepted) {
+    public MonitorDetailsDTO(int id, int studentId, int teacherId, LocalDateTime requestDate, LocalDateTime acceptanceOrRejectionDate, String subjectDescription, boolean accepted, String studentName, String teacherName) {
         this.id = id;
         this.studentId = studentId;
         this.teacherId = teacherId;
@@ -19,6 +21,8 @@ public class MonitorDetailsDTO {
         this.acceptanceOrRejectionDate = acceptanceOrRejectionDate;
         this.subjectDescription = subjectDescription;
         this.accepted = accepted;
+        this.studentName = studentName;
+        this.teacherName = teacherName;
     }
 
     public int getId() {
@@ -75,5 +79,21 @@ public class MonitorDetailsDTO {
 
     public void setAccepted(boolean accepted) {
         this.accepted = accepted;
+    }
+    
+    public String getStudentName() {
+        return studentName;
+    }
+
+    public void setStudentName(String studentName) {
+        this.studentName = studentName;
+    }
+
+    public String getTeacherName() {
+        return teacherName;
+    }
+
+    public void setTeacherName(String teacherName) {
+        this.teacherName = teacherName;
     }
 }

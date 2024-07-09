@@ -20,27 +20,25 @@ public interface MonitorRepository extends JpaRepository<Monitor, Integer> {
 
     //---------------------------
     
-    @Query("SELECT new projeto.simulados.main.dto.MonitorDetailsDTO(m.id, s.id, t.id, m.requestDate, m.acceptanceOrRejectionDate, m.subjectDescription, m.accepted) " +
-           "FROM Monitor m " +
-           "JOIN m.student s " +
-           "JOIN m.teacher t " +
-           "WHERE m.student.id = :studentId")
+    @Query("SELECT new projeto.simulados.main.dto.MonitorDetailsDTO(m.id, s.id, t.id, m.requestDate, m.acceptanceOrRejectionDate, m.subjectDescription, m.accepted, s.name, t.name) " +
+    "FROM Monitor m " +
+    "JOIN m.student s " +
+    "JOIN m.teacher t " +
+    "WHERE m.student.id = :studentId")
     List<MonitorDetailsDTO> findByStudentIdWithDetails(@Param("studentId") int studentId);
-    
-    
-    @Query("SELECT new projeto.simulados.main.dto.MonitorDetailsDTO(m.id, s.id, t.id, m.requestDate, m.acceptanceOrRejectionDate, m.subjectDescription, m.accepted) " +
-           "FROM Monitor m " +
-           "JOIN m.student s " +
-           "JOIN m.teacher t " +
-           "WHERE m.teacher.id = :teacherId")
+
+    @Query("SELECT new projeto.simulados.main.dto.MonitorDetailsDTO(m.id, s.id, t.id, m.requestDate, m.acceptanceOrRejectionDate, m.subjectDescription, m.accepted, s.name, t.name) " +
+    "FROM Monitor m " +
+    "JOIN m.student s " +
+    "JOIN m.teacher t " +
+    "WHERE m.teacher.id = :teacherId")
     List<MonitorDetailsDTO> findByTeacherIdWithDetails(@Param("teacherId") int teacherId);
 
-    @Query("SELECT new projeto.simulados.main.dto.MonitorDetailsDTO(m.id, s.id, t.id, m.requestDate, m.acceptanceOrRejectionDate, m.subjectDescription, m.accepted) " +
-           "FROM Monitor m " +
-           "JOIN m.student s " +
-           "JOIN m.teacher t " +
-           "WHERE m.student.id = :studentId AND m.teacher.id = :teacherId")
+    @Query("SELECT new projeto.simulados.main.dto.MonitorDetailsDTO(m.id, s.id, t.id, m.requestDate, m.acceptanceOrRejectionDate, m.subjectDescription, m.accepted, s.name, t.name) " +
+    "FROM Monitor m " +
+    "JOIN m.student s " +
+    "JOIN m.teacher t " +
+    "WHERE m.student.id = :studentId AND m.teacher.id = :teacherId")
     List<MonitorDetailsDTO> findByStudentAndTeacherIdWithDetails(@Param("studentId") int studentId, @Param("teacherId") int teacherId);
-
 
 }
