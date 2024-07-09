@@ -6,7 +6,10 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import projeto.simulados.main.dto.MonitorDetailsDTO;
 import projeto.simulados.main.model.Monitor;
+import projeto.simulados.main.model.Teacher;
+import projeto.simulados.main.model.Student;
 import projeto.simulados.main.repository.MonitorRepository;
 import projeto.simulados.main.repository.StudentRepository;
 import projeto.simulados.main.repository.TeacherRepository;
@@ -55,4 +58,46 @@ public class MonitorService {
     public List<Monitor> findAll() {
 		return monitorRepository.findAll();
 	}
+    
+    //--------------------
+
+    public List<Monitor> getMonitorsByStudentId(int studentId) {
+        return monitorRepository.findByStudentId(studentId);
+    }
+
+    public List<Monitor> getMonitorsByTeacherId(int teacherId) {
+        return monitorRepository.findByTeacherId(teacherId);
+    }
+
+    public List<Monitor> getMonitorsByStudentAndTeacherId(int studentId, int teacherId) {
+        return monitorRepository.findByStudentIdAndTeacherId(studentId, teacherId);
+    }
+
+	public void saveMonitorOnTeacher( int student_id, int teacher_id, Monitor monitor) {
+
+        Teacher teacher = tearcherRepository.findById(teacher_id).get();
+        Student student = studentRepository.findById(student_id).get();
+
+        monitor.setTeacher(teacher);
+        monitor.setStudent(student);
+
+        monitorRepository.save(monitor);
+    }    
+
+    //--------------teste---------------------
+
+
+    public List<MonitorDetailsDTO> getMonitorsByStudentIdWithDetails(int studentId) {
+        return monitorRepository.findByStudentIdWithDetails(studentId);
+    }
+
+    public List<MonitorDetailsDTO> getMonitorsByTeacherIdWithDetails(int teacherId) {
+        return monitorRepository.findByTeacherIdWithDetails(teacherId);
+    }
+
+    public List<MonitorDetailsDTO> getMonitorsByStudentAndTeacherIdWithDetails(int studentId, int teacherId) {
+        return monitorRepository.findByStudentAndTeacherIdWithDetails(studentId, teacherId);
+    }
+
+
 }

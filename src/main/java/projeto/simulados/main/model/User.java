@@ -15,7 +15,7 @@ public abstract class User {
     private String name;
 
     @OneToOne
-    @JoinColumn(name = "login_id", referencedColumnName = "id")
+    @JoinColumn(name = "login_id", referencedColumnName = "id", unique = true)
     private Login login;
 
     @Column(name = "function")
